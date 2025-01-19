@@ -24,6 +24,7 @@ const switchLanguage = async (newLocale) => {
 
     // Update locale after navigation
     locale.value = newLocale
+    sessionStorage.setItem('locale', locale.value)
   } catch (error) {
     console.error('Failed to switch language:', error)
   }
