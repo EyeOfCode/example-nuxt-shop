@@ -11,30 +11,28 @@
             <!-- Desktop Menu -->
             <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
               <NuxtLink
-                to="/"
-                class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium"
+                v-for="item in navItems"
+                :key="item.to"
+                :to="item.to"
+                :class="[
+                  'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
+                  activeRoute === item.to
+                    ? 'text-gray-900 border-indigo-500'
+                    : 'text-gray-500 hover:text-gray-900 border-transparent hover:border-gray-300'
+                ]"
+                @click="setActive(item.to)"
               >
-                {{ $t('home_menu') }}
-              </NuxtLink>
-              <NuxtLink
-                to="/product"
-                class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium"
-              >
-                สินค้า
-              </NuxtLink>
-              <NuxtLink
-                to="/category"
-                class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium"
-              >
-                หมวดหมู่
+                {{ $t(item.key) }}
               </NuxtLink>
             </div>
           </div>
-
-          <div class="flex items-center">
+          <div class="flex items-center space-x-4">
+            <!-- Search Modal -->
             <SearchModal />
-            <button class="ml-4 p-2 rounded-full text-gray-500 hover:text-gray-900 relative">
-              <span class="sr-only">ตะกร้าสินค้า</span>
+
+            <!-- Cart -->
+            <button class="p-2 rounded-full text-gray-500 hover:text-gray-900 relative">
+              <span class="sr-only">Cart</span>
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
@@ -48,8 +46,28 @@
                 >2</span
               >
             </button>
+
+            <!-- Language Switcher -->
             <LanguageSwitcher />
-            <!-- Mobile menu button -->
+
+            <!-- User Profile -->
+            <button class="hidden sm:block p-2 rounded-full text-gray-500 hover:text-gray-900">
+              <span class="sr-only">User Profile</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                />
+              </svg>
+            </button>
             <button
               class="sm:hidden ml-4 p-2 rounded-md text-gray-500 hover:text-gray-900 focus:outline-none"
               @click="isOpen = !isOpen"
@@ -87,32 +105,22 @@
           </div>
         </div>
 
-        <!-- Mobile menu -->
+        <!-- Mobile Menu -->
         <div class="sm:hidden" :class="{ block: isOpen, hidden: !isOpen }">
           <div class="pt-2 pb-3 space-y-1">
             <NuxtLink
-              to="/"
-              class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+              v-for="item in navItems"
+              :key="item.to"
+              :to="item.to"
+              class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+              :class="[
+                activeRoute === item.to
+                  ? 'bg-indigo-50 border-indigo-500 text-indigo-700'
+                  : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
+              ]"
+              @click="setActive(item.to)"
             >
-              {{ $t('home_menu') }}
-            </NuxtLink>
-            <NuxtLink
-              to="/product"
-              class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-            >
-              สินค้า
-            </NuxtLink>
-            <NuxtLink
-              to="/category"
-              class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-            >
-              หมวดหมู่
-            </NuxtLink>
-            <NuxtLink
-              to="/auth/login"
-              class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-            >
-              Login
+              {{ $t(item.key) }}
             </NuxtLink>
           </div>
         </div>
@@ -125,7 +133,29 @@
 </template>
 
 <script setup>
-const config = useRuntimeConfig()
+import { ref } from 'vue'
 
 const isOpen = ref(false)
+
+// Runtime configuration
+const config = useRuntimeConfig()
+
+// Active route tracking
+const activeRoute = ref('/')
+
+// Navigation items
+const navItems = [
+  { to: '/', key: 'home_menu' },
+  { to: '/product', key: 'product_menu' },
+  { to: '/category', key: 'category_menu' },
+  { to: '/auth/login', key: 'login_menu' }
+]
+
+// Function to set the active route
+const setActive = (route) => {
+  activeRoute.value = route
+}
+
+// Set initial active route
+activeRoute.value = useRoute().path
 </script>

@@ -1,3 +1,6 @@
 {
-  "home_menu": "Home"
+  "home_menu": "Home",
+  "product_menu": "Product",
+  "category_menu": "Category",
+  "login_menu": "Login"
 }

@@ -1,3 +1,6 @@
 {
-  "home_menu": "หน้าหลัก"
+  "home_menu": "หน้าหลัก",
+  "product_menu": "สินค้า",
+  "category_menu": "หมวดหมู่",
+  "login_menu": "เข้าสู่ระบบ"
 }

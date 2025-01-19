@@ -1,10 +1,9 @@
 export default defineNuxtRouteMiddleware((to) => {
-  let lang = 'th'
-  if (process.client) {
-    lang = sessionStorage.getItem('locale') || 'th'
-  }
-  const locale = to.path.split('/')[1]
-  if (!['en', 'th'].includes(locale)) {
-    return navigateTo(`/${lang}${to.path}`)
+  const i18n = useNuxtApp().$i18n
+  const locale = i18n.locale || i18n.defaultLocale
+  if (to.fullPath.startsWith(`/${locale.value}`)) {
+    i18n.setLocale(locale.value)
+  } else {
+    return navigateTo(`/${locale.value}${to.fullPath}`)
   }
 })

@@ -36,7 +36,9 @@ export default [
         withDefaults: 'readonly',
         useRuntimeConfig: 'readonly',
         definePageMeta: 'readonly',
-        useHead: 'readonly'
+        useHead: 'readonly',
+        navigateTo: 'readonly',
+        useRoute: 'readonly'
       }
     },
     rules: {

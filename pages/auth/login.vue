@@ -24,14 +24,18 @@
       >
         Sign in
       </button>
+      <button
+        type="button"
+        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
+        @click="backToHome"
+      >
+        Back
+      </button>
     </form>
   </div>
 </template>
 
 <script setup>
-import { useNavigate } from 'vue-router'
-
-const navigate = useNavigate()
 const email = ref('')
 const password = ref('')
 
@@ -44,6 +48,10 @@ definePageMeta({
 })
 
 const handleLogin = () => {
-  navigate('/')
+  navigateTo('/')
+}
+
+const backToHome = () => {
+  navigateTo('/')
 }
 </script>

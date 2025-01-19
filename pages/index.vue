@@ -51,28 +51,28 @@ const products = ref([
     name: 'สินค้าตัวอย่าง 1',
     category: 'เสื้อผ้า',
     price: '฿590',
-    imageSrc: '/api/placeholder/400/320'
+    imageSrc: '/images/shopping.jpg'
   },
   {
     id: 2,
     name: 'สินค้าตัวอย่าง 2',
     category: 'รองเท้า',
     price: '฿890',
-    imageSrc: '/api/placeholder/400/320'
+    imageSrc: '/images/shopping.jpg'
   },
   {
     id: 3,
     name: 'สินค้าตัวอย่าง 3',
     category: 'กระเป๋า',
     price: '฿1,290',
-    imageSrc: '/api/placeholder/400/320'
+    imageSrc: '/images/shopping.jpg'
   },
   {
     id: 4,
     name: 'สินค้าตัวอย่าง 4',
     category: 'เครื่องประดับ',
     price: '฿390',
-    imageSrc: '/api/placeholder/400/320'
+    imageSrc: '/images/shopping.jpg'
   }
 ])
 </script>
