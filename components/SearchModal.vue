@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Search Trigger Button -->
-    <button @click="isOpen = true" class="p-2 rounded-full text-gray-500 hover:text-gray-900">
+    <button class="p-2 rounded-full text-gray-500 hover:text-gray-900" @click="isOpen = true">
       <span class="sr-only">ค้นหา</span>
       <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -38,8 +38,8 @@
             <!-- Close button -->
             <div class="absolute right-0 top-0 pr-2 pt-2">
               <button
-                @click="isOpen = false"
                 class="rounded-md bg-white text-gray-400 hover:text-gray-500"
+                @click="isOpen = false"
               >
                 <span class="sr-only">ปิด</span>
                 <svg
@@ -58,11 +58,11 @@
             <div class="mt-3">
               <div class="relative">
                 <input
-                  type="text"
                   v-model="searchQuery"
-                  @input="handleSearch"
+                  type="text"
                   class="w-full rounded-md border-gray-300 pl-10 pr-4 py-2 focus:border-indigo-500 focus:ring-indigo-500"
                   placeholder="ค้นหาสินค้า..."
+                  @input="handleSearch"
                 />
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
@@ -97,7 +97,9 @@
                         class="h-10 w-10 object-cover rounded"
                       />
                       <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
+                        <p class="text-sm font-medium text-gray-900">
+                          {{ result.name }}
+                        </p>
                         <p class="text-sm text-gray-500">{{ result.price }} บาท</p>
                       </div>
                     </div>

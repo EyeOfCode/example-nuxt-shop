@@ -12,5 +12,6 @@ module.exports = {
   theme: {
     extend: {}
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('flowbite/plugin')]
 }

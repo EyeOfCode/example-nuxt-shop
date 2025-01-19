@@ -51,8 +51,8 @@
             <LanguageSwitcher />
             <!-- Mobile menu button -->
             <button
-              @click="isOpen = !isOpen"
               class="sm:hidden ml-4 p-2 rounded-md text-gray-500 hover:text-gray-900 focus:outline-none"
+              @click="isOpen = !isOpen"
             >
               <span class="sr-only">เมนู</span>
               <svg

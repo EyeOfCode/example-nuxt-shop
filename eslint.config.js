@@ -33,7 +33,10 @@ export default [
         defineProps: 'readonly',
         defineEmits: 'readonly',
         defineExpose: 'readonly',
-        withDefaults: 'readonly'
+        withDefaults: 'readonly',
+        useRuntimeConfig: 'readonly',
+        definePageMeta: 'readonly',
+        useHead: 'readonly'
       }
     },
     rules: {

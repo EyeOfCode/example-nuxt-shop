@@ -4,8 +4,10 @@
     <option value="th" :selected="locale === 'th'">TH</option>
   </select>
 </template>
-
 <script setup>
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
 const { locale } = useI18n()
 const router = useRouter()
 
