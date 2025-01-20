@@ -1,5 +1,9 @@
 <template>
-  <div>Product</div>
+  <Product :products="products" />
 </template>
 
-<script setup></script>
+<script setup>
+import { useProducts } from '~~/composables/useProducts'
+
+const { products } = useProducts()
+</script>

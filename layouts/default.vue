@@ -72,7 +72,7 @@
               class="sm:hidden ml-4 p-2 rounded-md text-gray-500 hover:text-gray-900 focus:outline-none"
               @click="isOpen = !isOpen"
             >
-              <span class="sr-only">เมนู</span>
+              <span class="sr-only">Menu</span>
               <svg
                 class="h-6 w-6"
                 fill="none"
@@ -133,9 +133,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const isOpen = ref(false)
+const route = useRoute()
 
 // Runtime configuration
 const config = useRuntimeConfig()
@@ -147,7 +148,6 @@ const activeRoute = ref('/')
 const navItems = [
   { to: '/', key: 'home_menu' },
   { to: '/product', key: 'product_menu' },
-  { to: '/category', key: 'category_menu' },
   { to: '/auth/login', key: 'login_menu' }
 ]
 
@@ -156,6 +156,20 @@ const setActive = (route) => {
   activeRoute.value = route
 }
 
-// Set initial active route
-activeRoute.value = useRoute().path
+const normalizePath = (path) => {
+  const strippedPath = path.replace(/^\/[a-z]{2}/, '') || '/' // Removes /{lang} prefix
+  return strippedPath
+}
+
+onMounted(() => {
+  activeRoute.value = normalizePath(route.path)
+})
+
+watch(
+  () => route.path,
+  (newPath) => {
+    activeRoute.value = normalizePath(newPath)
+  },
+  { immediate: true }
+)
 </script>

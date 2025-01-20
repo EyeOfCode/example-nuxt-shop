@@ -1,6 +1,10 @@
 {
   "home_menu": "Home",
   "product_menu": "Product",
-  "category_menu": "Category",
-  "login_menu": "Login"
+  "login_menu": "Login",
+  "login": "Login",
+  "email": "Email",
+  "password": "Password",
+  "sign_in": "Sign in",
+  "back": "Back"
 }

@@ -1,6 +1,10 @@
 {
   "home_menu": "หน้าหลัก",
   "product_menu": "สินค้า",
-  "category_menu": "หมวดหมู่",
-  "login_menu": "เข้าสู่ระบบ"
+  "login_menu": "เข้าสู่ระบบ",
+  "login": "เข้าสู่ระบบ",
+  "email": "อีเมล",
+  "password": "รหัสผ่าน",
+  "sign_in": "เข้าสู่ระบบ",
+  "back": "กลับ"
 }
