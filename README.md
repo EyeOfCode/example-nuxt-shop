@@ -13,6 +13,7 @@ example nuxt project shop
 - bun
 - flowbite
 - i18n
+- Pinia
 
 ## run
 
