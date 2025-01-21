@@ -2,7 +2,7 @@
   <div>
     <!-- Search Trigger Button -->
     <button class="p-2 rounded-full text-gray-500 hover:text-gray-900" @click="isOpen = true">
-      <span class="sr-only">ค้นหา</span>
+      <span class="sr-only">{{ $t('search') }}</span>
       <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
           stroke-linecap="round"
@@ -61,7 +61,7 @@
                   v-model="searchQuery"
                   type="text"
                   class="w-full rounded-md border-gray-300 pl-10 pr-4 py-2 focus:border-indigo-500 focus:ring-indigo-500"
-                  placeholder="ค้นหาสินค้า..."
+                  :placeholder="$t('search') + '...'"
                   @input="handleSearch"
                 />
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -92,7 +92,7 @@
                   >
                     <div class="flex items-center">
                       <img
-                        :src="result.image"
+                        :src="result.imageSrc"
                         :alt="result.name"
                         class="h-10 w-10 object-cover rounded"
                       />
@@ -100,13 +100,15 @@
                         <p class="text-sm font-medium text-gray-900">
                           {{ result.name }}
                         </p>
-                        <p class="text-sm text-gray-500">{{ result.price }} บาท</p>
+                        <p class="text-sm text-gray-500">
+                          {{ result.price }} {{ $t('currency_bath') }}
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div v-else-if="searchQuery && !isLoading" class="py-4 text-center text-gray-500">
-                  ไม่พบผลการค้นหา
+                  {{ $t('data_not_found') }}
                 </div>
               </div>
             </div>
@@ -125,27 +127,23 @@ const searchQuery = ref('')
 const searchResults = ref([])
 const isLoading = ref(false)
 
-// Mock data
-const mockProducts = [
-  {
-    id: 1,
-    name: 'สินค้าตัวอย่าง 1',
-    price: 1500,
-    image: 'https://via.placeholder.com/150'
+const props = defineProps({
+  products: {
+    type: Array,
+    default: () => [],
+    required: true
   },
-  {
-    id: 2,
-    name: 'สินค้าตัวอย่าง 2',
-    price: 2500,
-    image: 'https://via.placeholder.com/150'
+  searchQuery: {
+    type: Function,
+    required: true
   }
-]
+})
 
 const handleSearch = () => {
   isLoading.value = true
   setTimeout(() => {
     if (searchQuery.value) {
-      searchResults.value = mockProducts.filter((product) =>
+      searchResults.value = props.products.filter((product) =>
         product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
       )
     } else {
@@ -156,7 +154,7 @@ const handleSearch = () => {
 }
 
 const selectResult = (result) => {
-  console.log('Selected product:', result)
+  props.searchQuery(result.name)
   isOpen.value = false
 }
 

@@ -28,7 +28,7 @@
           </div>
           <div class="flex items-center space-x-4">
             <!-- Search Modal -->
-            <SearchModal />
+            <SearchModal :products="products" :search-query="searchQuery" />
 
             <!-- Cart -->
             <button class="p-2 rounded-full text-gray-500 hover:text-gray-900 relative">
@@ -134,7 +134,11 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import { useProducts } from '~~/composables/useProducts'
+import { useUserStore } from '~~/stores/useUserStore'
 
+const userStore = useUserStore()
+const { products } = useProducts()
 const isOpen = ref(false)
 const route = useRoute()
 
@@ -145,11 +149,10 @@ const config = useRuntimeConfig()
 const activeRoute = ref('/')
 
 // Navigation items
-const navItems = [
+const navItems = ref([
   { to: '/', key: 'home_menu' },
-  { to: '/product', key: 'product_menu' },
-  { to: '/auth/login', key: 'login_menu' }
-]
+  { to: '/product', key: 'product_menu' }
+])
 
 // Function to set the active route
 const setActive = (route) => {
@@ -161,8 +164,26 @@ const normalizePath = (path) => {
   return strippedPath
 }
 
+const searchQuery = (query) => {
+  navigateTo(`/product?search=${query}`)
+}
+
+const checkLogin = () => {
+  navItems.value = navItems.value.filter(
+    (item) => item.key !== 'login_menu' && item.key !== 'logout_menu'
+  )
+
+  if (!userStore.isLoggedIn) {
+    navItems.value = [...navItems.value, { to: '/auth/login', key: 'login_menu' }]
+  } else {
+    userStore.clearUser()
+    navItems.value = [...navItems.value, { to: '/auth/login', key: 'logout_menu' }]
+  }
+}
+
 onMounted(() => {
   activeRoute.value = normalizePath(route.path)
+  checkLogin()
 })
 
 watch(

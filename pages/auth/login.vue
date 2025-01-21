@@ -38,6 +38,10 @@
 </template>
 
 <script setup>
+import { ref, onMounted, watch } from 'vue'
+import { useUserStore } from '~~/stores/useUserStore'
+
+const userStore = useUserStore()
 const email = ref('')
 const password = ref('')
 
@@ -50,10 +54,23 @@ definePageMeta({
 })
 
 const handleLogin = () => {
+  userStore.setUser({ name: 'John Doe', email: email.value })
   navigateTo('/')
 }
 
 const backToHome = () => {
   navigateTo('/')
 }
+
+onMounted(() => {
+  if (userStore.isLoggedIn) {
+    backToHome()
+  }
+})
+
+watch(userStore, () => {
+  if (userStore.isLoggedIn) {
+    backToHome()
+  }
+})
 </script>

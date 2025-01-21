@@ -8,24 +8,25 @@
           <img
             :src="product.imageSrc"
             :alt="product.name"
-            class="w-full h-full object-center object-cover lg:w-full lg:h-full"
+            class="w-full h-full object-center object-cover lg:w-full lg:h-full cursor-pointer"
+            @click="handleDetailProduct(product.id)"
           />
         </div>
         <div class="mt-4 flex justify-between">
           <div>
             <h3 class="text-sm text-gray-700">
-              <a href="#">
+              <p class="cursor-pointer" @click="handleDetailProduct(product.id)">
                 {{ product.name }}
-              </a>
+              </p>
             </h3>
             <p class="mt-1 text-sm text-gray-500">{{ product.category }}</p>
           </div>
-          <p class="text-sm font-medium text-gray-900">{{ product.price }}</p>
+          <p class="text-sm font-medium text-gray-900">{{ product.currency }}{{ product.price }}</p>
         </div>
         <button
           class="mt-4 w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
         >
-          เพิ่มลงตะกร้า
+          {{ $t('add_to_cart') }}
         </button>
       </div>
     </div>
@@ -40,4 +41,8 @@ defineProps({
     required: true
   }
 })
+
+const handleDetailProduct = (id) => {
+  navigateTo(`/product/${id}`)
+}
 </script>

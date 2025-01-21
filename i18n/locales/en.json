@@ -6,5 +6,13 @@
   "email": "Email",
   "password": "Password",
   "sign_in": "Sign in",
-  "back": "Back"
+  "back": "Back",
+  "logout_menu": "Logout",
+  "quantity": "Quantity",
+  "add_to_cart": "Add to cart",
+  "data_not_found": "Data not found",
+  "search": "Search",
+  "currency_bath": "Bath",
+  "new_item_available": "New item available",
+  "select_base_item_sell": "Select base item to sell"
 }

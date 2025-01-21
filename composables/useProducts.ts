@@ -4,16 +4,19 @@ import mockProducts from '~/assets/mock/products.json'
 
 export function useProducts() {
   const products = ref<IProduct[]>([])
-  const searchQuery = ref('')
 
   const setProducts = (newProducts: IProduct[]) => {
     products.value = newProducts
   }
 
-  const searchProducts = () => {
+  const searchProducts = (query: string) => {
     return products.value.filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+      product.name.toLowerCase().includes(query.toLowerCase())
     )
+  }
+
+  const getProductById = (id: number) => {
+    return products.value.find((product) => product.id === id)
   }
 
   onMounted(() => {
@@ -22,8 +25,8 @@ export function useProducts() {
 
   return {
     products,
-    searchQuery,
     setProducts,
-    searchProducts
+    searchProducts,
+    getProductById
   }
 }
