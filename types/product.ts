@@ -6,3 +6,11 @@ export interface IProduct {
   currency: string
   imageSrc: string
 }
+
+export interface ICartProduct {
+  id: number
+  user: string
+  product: IProduct
+  quantity: number
+  status: string
+}

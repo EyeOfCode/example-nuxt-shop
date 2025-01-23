@@ -24,7 +24,9 @@
           <p class="text-sm font-medium text-gray-900">{{ product.currency }}{{ product.price }}</p>
         </div>
         <button
+          v-if="addToCart"
           class="mt-4 w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+          @click="pickUp(product)"
         >
           {{ $t('add_to_cart') }}
         </button>
@@ -34,6 +36,10 @@
 </template>
 
 <script setup>
+import { useProducts } from '~~/composables/useProducts'
+
+const { addToCart } = useProducts()
+
 defineProps({
   products: {
     type: Array,
@@ -44,5 +50,9 @@ defineProps({
 
 const handleDetailProduct = (id) => {
   navigateTo(`/product/${id}`)
+}
+
+const pickUp = (product) => {
+  addToCart(product, 1)
 }
 </script>

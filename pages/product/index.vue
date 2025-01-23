@@ -9,17 +9,17 @@ const route = useRoute()
 
 const { products, searchProducts } = useProducts()
 
-onMounted(() => {
+onMounted(async () => {
   const queryParam = route.query.search
   if (queryParam) {
-    products.value = searchProducts(queryParam)
+    products.value = await searchProducts(queryParam)
   }
 })
 
 watch(
   () => route.query.search,
-  (newQuery) => {
-    products.value = searchProducts(newQuery)
+  async (newQuery) => {
+    products.value = await searchProducts(newQuery)
   }
 )
 </script>
