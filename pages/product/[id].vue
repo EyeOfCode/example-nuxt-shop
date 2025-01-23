@@ -31,7 +31,7 @@
 
         <button
           class="bg-indigo-600 text-white px-6 py-2 rounded shadow hover:bg-indigo-700"
-          @click="addToCart"
+          @click="pickUp"
         >
           {{ $t('add_to_cart') }}
         </button>
@@ -48,7 +48,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProducts } from '~~/composables/useProducts'
 
-const { getProductById } = useProducts()
+const { getProductById, addToCart } = useProducts()
 const route = useRoute()
 const quantity = ref(1)
 const product = ref({})
@@ -59,8 +59,8 @@ const formatPrice = (price) => {
   }
 }
 
-const addToCart = () => {
-  alert(`${quantity.value} item(s) of ${product.value.name} added to cart!`)
+const pickUp = (product) => {
+  addToCart(product, quantity.value)
 }
 
 onMounted(() => {

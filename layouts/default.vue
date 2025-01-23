@@ -42,8 +42,9 @@
                 />
               </svg>
               <span
+                v-if="currentCart > 0"
                 class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
-                >2</span
+                >{{ currentCart }}</span
               >
             </button>
 
@@ -136,11 +137,14 @@
 import { ref, watch } from 'vue'
 import { useProducts } from '~~/composables/useProducts'
 import { useUserStore } from '~~/stores/useUserStore'
+import { useAuth } from '~~/composables/useAuth'
 
 const userStore = useUserStore()
-const { products } = useProducts()
+const auth = useAuth()
+const { products, cart } = useProducts()
 const isOpen = ref(false)
 const route = useRoute()
+const currentCart = ref()
 
 // Runtime configuration
 const config = useRuntimeConfig()
@@ -156,6 +160,9 @@ const navItems = ref([
 
 // Function to set the active route
 const setActive = (route) => {
+  if (route === '/auth/login') {
+    auth.logout()
+  }
   activeRoute.value = route
 }
 
@@ -176,13 +183,17 @@ const checkLogin = () => {
   if (!userStore.isLoggedIn) {
     navItems.value = [...navItems.value, { to: '/auth/login', key: 'login_menu' }]
   } else {
-    userStore.clearUser()
     navItems.value = [...navItems.value, { to: '/auth/login', key: 'logout_menu' }]
   }
 }
 
+const countCartItems = () => {
+  currentCart.value = cart.getCart.length
+}
+
 onMounted(() => {
   activeRoute.value = normalizePath(route.path)
+  currentCart.value = cart.getCart.length
   checkLogin()
 })
 
@@ -192,5 +203,12 @@ watch(
     activeRoute.value = normalizePath(newPath)
   },
   { immediate: true }
+)
+
+watch(
+  () => cart.getCart.length,
+  () => {
+    countCartItems()
+  }
 )
 </script>

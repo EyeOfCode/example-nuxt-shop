@@ -38,10 +38,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import { useUserStore } from '~~/stores/useUserStore'
+import { ref } from 'vue'
+import { useAuth } from '~/composables/useAuth'
 
-const userStore = useUserStore()
+const auth = useAuth()
 const email = ref('')
 const password = ref('')
 
@@ -50,27 +50,16 @@ useHead({
 })
 
 definePageMeta({
+  middleware: ['login'],
   layout: 'auth'
 })
 
-const handleLogin = () => {
-  userStore.setUser({ name: 'John Doe', email: email.value })
+const handleLogin = async () => {
+  await auth.login(email.value)
   navigateTo('/')
 }
 
 const backToHome = () => {
   navigateTo('/')
 }
-
-onMounted(() => {
-  if (userStore.isLoggedIn) {
-    backToHome()
-  }
-})
-
-watch(userStore, () => {
-  if (userStore.isLoggedIn) {
-    backToHome()
-  }
-})
 </script>
