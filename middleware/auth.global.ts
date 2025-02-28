@@ -1,5 +1,5 @@
 // global middleware
-export default defineNuxtRouteMiddleware(async (to) => {
+export default defineNuxtRouteMiddleware(async (_to) => {
   const auth = useAuth()
   const token = useCookie('token')
 
