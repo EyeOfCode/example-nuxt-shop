@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
+  // Set css
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {
@@ -40,7 +41,8 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Nuxt Shop'
+      title: process.env.APP_NAME || 'My Nuxt App',
+      meta: [{ name: 'description', content: process.env.APP_DESCRIPTION || '' }]
     }
   },
   // Set server
@@ -48,7 +50,7 @@ export default defineNuxtConfig({
     port: Number(process.env.PORT) || 3000,
     host: process.env.HOST || 'localhost'
   },
-  // Set env
+  // Set config app env
   runtimeConfig: {
     // Server-side environment variables
     nodeEnv: process.env.NODE_ENV || 'development',
