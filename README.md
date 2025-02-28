@@ -15,11 +15,15 @@ example nuxt project shop
 - i18n
 - Pinia
 
-## run
+## Run
 
-- build static .output/public $bun generate
-- build server-side .output $bun build
-- build preview prod $bun preview
 - dev $bun dev
 - lint fix $bun lint:fix
 - format $bun format
+
+## Deploy
+
+- build static .output/public $bun generate
+
+- build server-side .output $bun build
+- build preview prod $bun preview
